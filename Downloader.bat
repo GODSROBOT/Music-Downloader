@@ -3,93 +3,99 @@ setlocal
 title Music Downloader Launcher
 color 0B
 
-:: =====================================================
-::      MUSIC DOWNLOADER - AUTO INSTALLER
-:: =====================================================
+REM =====================================================
+REM      MUSIC DOWNLOADER - AUTO INSTALLER
+REM =====================================================
 cls
 echo.
-echo  [1/5] Checking System...
+echo  Step 1 of 5 - Checking System
 
-:: 1. CHECK PYTHON
+REM 1. CHECK PYTHON
 python --version >nul 2>&1
-if %errorlevel% neq 0 (
+if errorlevel 1 (
     color 0C
     echo.
-    echo  [CRITICAL ERROR] Python is NOT installed!
+    echo  CRITICAL ERROR: Python is NOT installed
     echo.
     echo  1. Go to https://www.python.org/downloads/
-    echo  2. Download Python.
-    echo  3. IMPORTANT: Check the box "Add Python to PATH" during install.
+    echo  2. Download Python
+    echo  3. CHECK "Add Python to PATH" during install
     echo.
     pause
-    exit
+    exit /b
 )
 
-:: 2. SETUP VIRTUAL ENVIRONMENT (Isolates installations)
+REM 2. SETUP VIRTUAL ENVIRONMENT
 if not exist ".venv" (
-    echo  [2/5] Creating Virtual Environment (First run only)...
+    echo.
+    echo  Step 2 of 5 - Creating Virtual Environment
     python -m venv .venv
 )
 
-:: Activate the environment
-call .venv\Scripts\activate
+REM ACTIVATE VENV
+call ".venv\Scripts\activate.bat"
 
-:: 3. GENERATE REQUIREMENTS (If missing)
+REM 3. GENERATE REQUIREMENTS
 if not exist "requirements.txt" (
-    echo  [3/5] Generating requirements.txt...
-    (
-        echo yt-dlp
-        echo requests
-        echo spotipy
-        echo mutagen
-        echo rich
-        echo selenium
-        echo webdriver-manager
-    ) > requirements.txt
+    echo.
+    echo  Step 3 of 5 - Generating requirements.txt
+    echo yt-dlp>requirements.txt
+    echo requests>>requirements.txt
+    echo spotipy>>requirements.txt
+    echo mutagen>>requirements.txt
+    echo rich>>requirements.txt
+    echo selenium>>requirements.txt
+    echo webdriver-manager>>requirements.txt
 )
 
-:: 4. INSTALL DEPENDENCIES
-echo  [4/5] Updating Libraries (This may take a moment)...
+REM 4. INSTALL DEPENDENCIES
+echo.
+echo  Step 4 of 5 - Installing dependencies
 python -m pip install --upgrade pip --quiet
 pip install -r requirements.txt --quiet --disable-pip-version-check
 
-:: 5. CHECK & INSTALL FFMPEG
-echo  [5/5] Checking FFmpeg...
+REM 5. CHECK FFMPEG
+echo.
+echo  Step 5 of 5 - Checking FFmpeg
 ffmpeg -version >nul 2>&1
-if %errorlevel% neq 0 (
+if errorlevel 1 (
     echo.
-    echo  [WARNING] FFmpeg is missing. Attempting Auto-Install via Winget...
+    echo  WARNING: FFmpeg not found
+    echo  Attempting auto-install via Winget
     echo.
     winget install Gyan.FFmpeg
-    
-    if %errorlevel% neq 0 (
+
+    if errorlevel 1 (
         color 0C
         echo.
-        echo  [ERROR] Auto-install failed. You must install FFmpeg manually.
-        echo  Download: https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-essentials.7z
-        echo  Extract and add 'bin' folder to System PATH.
+        echo  ERROR: FFmpeg auto-install failed
+        echo  Download manually from:
+        echo  https://www.gyan.dev/ffmpeg/builds/
+        echo.
         pause
-        exit
+        exit /b
     ) else (
         echo.
-        echo  [SUCCESS] FFmpeg installed! Please RESTART this script to apply changes.
+        echo  FFmpeg installed successfully
+        echo  PLEASE restart this script once
         pause
-        exit
+        exit /b
     )
 )
 
-:: 6. LAUNCH SCRIPT
+REM LAUNCH PROGRAM
 cls
 echo.
 echo  Starting Music Downloader...
 echo.
 python main.py
 
-:: Keep window open if crash
-if %errorlevel% neq 0 (
+if errorlevel 1 (
     color 0C
     echo.
-    echo  [CRASH] The script crashed. See error above.
+    echo  APPLICATION CRASHED
+    echo  Check error output above
     pause
 )
+
 pause
