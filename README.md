@@ -276,3 +276,10 @@ MAX_FILENAME_LEN = 64
 
 
 ### Happy listening. 🚗🎶
+
+
+## 📸 Preview
+
+> Live terminal UI with per-song progress bars, system logs, and queue management.
+
+![Music Downloader UI Preview](screenshots/image.png)

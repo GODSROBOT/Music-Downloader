@@ -66,7 +66,7 @@ SPOTIPY_CLIENT_SECRET = "YOUR_CLIENT_SECRET"
 
 # --- FOLDER OPTIONS ---
 FOLDERS = {
-    "1": ("Kannada - New", "Kannada New"),
+    "1": ("Kannada ", "Kannada New"),
     "2": ("Hindi", "Hindi Bollywood"),
     "3": ("English", "English Pop"),
     "4": ("Others", "South Indian Mix"),
