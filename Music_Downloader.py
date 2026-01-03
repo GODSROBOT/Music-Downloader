@@ -50,7 +50,7 @@ from selenium.webdriver.common.by import By
 # Force UTF-8 for Windows Consoles
 sys.stdout.reconfigure(encoding='utf-8')
 
-BASE_DIR = Path("Glanza_Music_USB").absolute()
+BASE_DIR = Path("Music").absolute()
 TEMP_DIR = BASE_DIR / "_temp_downloads"
 HISTORY_FILE = BASE_DIR / "song_history.json"
 SESSION_LOG = BASE_DIR / "session.log"
@@ -64,13 +64,12 @@ MAX_FILENAME_LEN = 64    # Safe limit for Car Head Units
 SPOTIPY_CLIENT_ID = "YOUR_CLIENT_ID"
 SPOTIPY_CLIENT_SECRET = "YOUR_CLIENT_SECRET"
 
+# --- FOLDER OPTIONS ---
 FOLDERS = {
     "1": ("Kannada - New", "Kannada New"),
-    "2": ("Kannada - Old", "Kannada Old"),
-    "3": ("Kannada - Mix", "Kannada Mix"),
-    "4": ("Hindi", "Hindi Bollywood"),
-    "5": ("English", "English Pop"),
-    "6": ("Others", "South Indian Mix"),
+    "2": ("Hindi", "Hindi Bollywood"),
+    "3": ("English", "English Pop"),
+    "4": ("Others", "South Indian Mix"),
 }
 
 # Global State
@@ -499,7 +498,7 @@ if __name__ == '__main__':
     try:
         while True:
             console.clear()
-            console.rule("[bold red]GLANZA MUSIC ARCHITECT v6.0 (Hardened)[/]")
+            console.rule("[bold red]MUSIC DOWNLOADER v1.0[/]")
             stats = {"downloaded": 0, "skipped": 0, "error": 0}
             shutdown_event.clear() # Reset flag for new batch
 
