@@ -1,0 +1,7 @@
+yt-dlp
+requests
+spotipy
+mutagen
+rich
+selenium
+webdriver-manager
